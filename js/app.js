@@ -58,6 +58,11 @@ document.getElementById('calculator').addEventListener('click', function (event)
 
 });
 
+
+// verify code
+
+let wrongAttempts = 0;
+
 document.getElementById('submit-btn').addEventListener('click', function(){
 
     const generateDisplay = document.getElementById('generate-pin');
@@ -68,18 +73,49 @@ document.getElementById('submit-btn').addEventListener('click', function(){
 
     const wrong = document.getElementById('wrong');
     const correct = document.getElementById('correct');
+
+   
+
+    if (inputPin === '') {
+        wrong.style.display = 'block';
+        correct.style.display = 'none';
+        setTimeout(function() {
+            wrong.style.display = 'none';
+        }, 3000);
+        wrongAttempts++;
+    }
     
 
-    if ( generatePin === inputPin){
+    else if ( generatePin === inputPin){
        
         correct.style.display = 'block';
         wrong.style.display = 'none';
+        setTimeout(function() {
+            correct.style.display = 'none';
+        }, 3000);
     }
     else{
         
         correct.style.display = 'none';
         wrong.style.display = 'block';
+        setTimeout(function() {
+            wrong.style.display = 'none';
+        }, 3000);
+        wrongAttempts++;
 
     }
+    
+    const getCount = document.getElementById('count');
+    getCount.innerText = 3 - wrongAttempts;
+    const count = getCount.innerText;
+    if(count === '0'){
+        document.getElementById('submit-btn').disabled = true;
+        
+
+    }
+
+
+
+
 
 })
